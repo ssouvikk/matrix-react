@@ -1,13 +1,13 @@
 import React from 'react';
 import { routes } from '../Routes/Auth.Routes';
 import { Routes, Route, Navigate } from 'react-router-dom';
-// import { Header } from '../Components';
+import { Header } from '../Components';
 
 const AuthLayout = (props) => {
 
     return (
         <div>
-            {/* <Header /> */}
+            <Header />
             <Routes>
                 {routes.map((route, idx) => {
                     const title = { title: route.name };

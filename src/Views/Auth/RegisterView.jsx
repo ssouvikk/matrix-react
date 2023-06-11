@@ -3,9 +3,9 @@ import { USER_TYPES } from '../../Configs/Constants';
 
 const RegisterView = (props) => {
     const [state, setState] = useState({
-        email: 'souvik+test@pitangent.com',
-        password: '789456123',
-        name: 'Souvik Mondal',
+        email: '',
+        password: '',
+        name: '',
         loading: false,
         type: USER_TYPES.EMPLOYEE
     })

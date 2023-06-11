@@ -1,8 +1,13 @@
+import { AuthService } from '../../Services';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 
 const LoginView = (props) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [state, setState] = useState({
 		email: '',
@@ -19,7 +24,16 @@ const LoginView = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+		if (loading) return
+		setState((prev) => ({ ...prev, loading: true }));
+		dispatch(AuthService.login({ email, password }))
+			.then((resp) => {
+				setState((prev) => ({ ...prev, loading: false }));
+				navigate("/dashboard");
+			})
+			.catch((err) => {
+				setState((prev) => ({ ...prev, loading: false }));
+			});	
 	};
 
 
@@ -27,8 +41,8 @@ const LoginView = (props) => {
 		<div>
 			<form onSubmit={handleSubmit}>
 				<h2>Login</h2>
-				<input name='email' value={email} onChange={handleChange} />
-				<input name='password' value={password} onChange={handleChange} />
+				<input placeholder='email' name='email' value={email} onChange={handleChange} />
+				<input placeholder='password' name='password' value={password} onChange={handleChange} />
 				<button >submit</button>
 				<div> <Link to="/forgot-password"> Forget Password? </Link> </div>
 			</form>
