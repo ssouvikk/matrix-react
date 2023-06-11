@@ -61,16 +61,6 @@ export default class AuthService extends BaseService {
         });
     }
 
-    static requestPassword(params) {
-        return new Promise((resolve, reject) => {
-            Http.post('/auth/forgot-password', params)
-                .then((res) => {
-                    let data = new Response < null > (res?.data);
-                    return resolve(data);
-                })
-                .catch((err) => reject(err))
-        });
-    }
 
     static register(params) {
         return new Promise((resolve, reject) => {
