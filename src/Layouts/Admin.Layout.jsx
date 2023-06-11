@@ -1,21 +1,21 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { routes } from '../Routes/Admin.Routes';
 import { Routes, Route, Navigate } from 'react-router-dom';
-// import { Header } from '../Components';
-// import { AuthService } from '../Services';
+import { Header } from '../Components';
+import { AuthService } from '../Services';
 import { useDispatch } from 'react-redux';
 
 
 const AdminLayout = (props) => {
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(AuthService.getMe());
-    // }, [])
+    useEffect(() => {
+        dispatch(AuthService.getMe());
+    }, [])
 
     return (
         <div>
-            {/* <Header /> */}
+            <Header />
             <Routes>
                 {routes.map((route, idx) => {
                     const title = { title: route.name };

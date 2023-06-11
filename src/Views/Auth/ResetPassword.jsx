@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { AuthService } from '../../Services';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 const ResetPassword = (props) => {
+    const { token } = useParams();
+    const navigate = useNavigate();
 
     const [state, setState] = useState({
         password: '',
@@ -17,7 +21,17 @@ const ResetPassword = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+        if (loading) return
+        setState((prev) => ({ ...prev, loading: true }));
+        AuthService.resetPassword({ token, password, confirmPassword })
+            .then((resp) => {
+                navigate("/login");
+                setState((prev) => ({ ...prev, loading: false }));
+            })
+            .catch(err => {
+                console.log(err)
+                setState((prev) => ({ ...prev, loading: false }))
+            });
     };
 
     return (

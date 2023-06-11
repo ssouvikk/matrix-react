@@ -1,15 +1,10 @@
-import { Link } from 'react-router-dom';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-
-const DashboardView = () => {
-    return <h1>dashbaord</h1>
-    const { name, profileImg } = this.props.user;
-    return (
-        <div>
-            <h3>Hello User name  </h3>
-            <Link to="/profile" > My Profile </Link>
-        </div>
-    )
+const DashboardView = ({ user }) => {
+    return <>
+        <h1>dashbaord</h1>
+        <h3>Hello {user.name}  </h3>
+        <h3>User type : {user.type}  </h3>
+    </>
+    
 }
 
 export default DashboardView

@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { AuthService } from '../../Services';
+import { useNavigate } from "react-router-dom";
 import { USER_TYPES } from '../../Configs/Constants';
 
 const RegisterView = (props) => {
+    const navigate = useNavigate();
     const [state, setState] = useState({
         email: '',
         password: '',
@@ -18,7 +21,16 @@ const RegisterView = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        if (loading) return
+        setState((prev) => ({ ...prev, loading: true }));
+        AuthService.register({ email, password, name, type, })
+            .then((resp) => {
+                setState((prev) => ({ ...prev, loading: false }));
+                navigate("/");
+            })
+            .catch((err) => {
+                setState((prev) => ({ ...prev, loading: false }));
+            });
     };
 
     return (

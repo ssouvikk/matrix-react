@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { AuthService } from '../../Services';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ForgotPassword = (props) => {
+	const navigate = useNavigate();
+
 	const [state, setState] = useState({
 		email: '',
 		loading: false,
@@ -14,7 +18,14 @@ const ForgotPassword = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+		if (loading) return
+		setState((prev) => ({ ...prev, loading: true }));
+		AuthService.requestPassword({ email }).then((resp) => {
+			navigate("/")
+			setState((prev) => ({ ...prev, loading: false }));
+		}).catch(err => {
+			setState((prev) => ({ ...prev, loading: false }));
+		});
 	};
 
 	return (
