@@ -20,12 +20,13 @@ const ForgotPassword = (props) => {
 		e.preventDefault()
 		if (loading) return
 		setState((prev) => ({ ...prev, loading: true }));
-		AuthService.requestPassword({ email }).then((resp) => {
-			navigate("/")
-			setState((prev) => ({ ...prev, loading: false }));
-		}).catch(err => {
-			setState((prev) => ({ ...prev, loading: false }));
-		});
+		AuthService.forgotPassword({ email })
+			.then((resp) => {
+				navigate("/")
+				setState((prev) => ({ ...prev, loading: false }));
+			}).catch(err => {
+				setState((prev) => ({ ...prev, loading: false }));
+			});
 	};
 
 	return (

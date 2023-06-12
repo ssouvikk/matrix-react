@@ -53,9 +53,17 @@ export default class AuthService extends BaseService {
             });
     }
 
-    static setPassword(params) {
+    static resetPassword(params) {
         return new Promise((resolve, reject) => {
-            Http.post('/auth/set-password', params)
+            Http.post('/auth/reset-password', params)
+                .then((res) => resolve(res?.data))
+                .catch((err) => reject(err));
+        });
+    }
+
+    static forgotPassword(params) {
+        return new Promise((resolve, reject) => {
+            Http.post('/auth/forgot-password', params)
                 .then((res) => resolve(res?.data))
                 .catch((err) => reject(err));
         });
@@ -105,11 +113,4 @@ export default class AuthService extends BaseService {
         });
     }
 
-    static resetPassword(params) {
-        return new Promise((resolve, reject) => {
-            Http.post('/auth/reset-password', params)
-                .then((res) => resolve(res?.data))
-                .catch((err) => reject(err));
-        });
-    }
 }
